@@ -1,0 +1,55 @@
+{
+    "spec": "aidoc@1.0",
+    "meta": {
+        "source_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "created_at": "2024-03-06T08:00:00Z",
+        "processor": {
+            "aidoc_core": "1.0.0",
+            "extractor": {
+                "name": "manual-example",
+                "version": "1.0"
+            },
+            "semantic_layers": [
+                {
+                    "name": "example-semantic-engine",
+                    "version": "1.0"
+                }
+            ]
+        }
+    },
+    "sections": [
+        {
+            "id": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+            "title": "Terms of Service",
+            "level": 1,
+            "blocks": [
+                {
+                    "id": "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2",
+                    "type": "paragraph",
+                    "text": "The user must not share their password with third parties.",
+                    "semantic": [
+                        {
+                            "type": "obligation",
+                            "subject": "user",
+                            "action": "share password",
+                            "modality": "must not",
+                            "object": "third parties"
+                        }
+                    ]
+                },
+                {
+                    "id": "f5e2277d94ae18cc871d37452d3d922a94fe9b0b18209804c7da630c449f874f",
+                    "type": "paragraph",
+                    "text": "Definition: Password means a secret string of characters.",
+                    "semantic": [
+                        {
+                            "type": "definition",
+                            "term": "Password",
+                            "meaning": "a secret string of characters"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

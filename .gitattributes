@@ -1,0 +1,18 @@
+# Handle line endings automatically
+* text=auto eol=lf
+
+# Force specific text files to always use LF (standard for SDKs)
+*.py text eol=lf
+*.md text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+
+# Guard binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.ico binary

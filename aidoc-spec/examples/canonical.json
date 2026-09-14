@@ -1,0 +1,62 @@
+{
+    "spec": "aidoc@1.0",
+    "meta": {
+        "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "created_at": "2024-03-06T08:00:00Z",
+        "processor": {
+            "aidoc_core": "1.0",
+            "extractor": {
+                "name": "txt",
+                "version": "1.0"
+            },
+            "semantic_layers": []
+        }
+    },
+    "sections": [
+        {
+            "id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "title": "Introduction",
+            "level": 1,
+            "blocks": [
+                {
+                    "id": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                    "type": "paragraph",
+                    "text": "This is a canonical AIDoc document example.",
+                    "semantic": []
+                }
+            ]
+        },
+        {
+            "id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "title": "Overview",
+            "level": 1,
+            "blocks": [
+                {
+                    "id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+                    "type": "paragraph",
+                    "text": "AIDoc provides a deterministic structure for representing documents.",
+                    "semantic": []
+                },
+                {
+                    "id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                    "type": "table",
+                    "rows": [
+                        [
+                            "Feature",
+                            "Description"
+                        ],
+                        [
+                            "Determinism",
+                            "Ensures identical input produces identical output"
+                        ],
+                        [
+                            "Immutability",
+                            "Documents cannot be modified after creation"
+                        ]
+                    ],
+                    "semantic": []
+                }
+            ]
+        }
+    ]
+}

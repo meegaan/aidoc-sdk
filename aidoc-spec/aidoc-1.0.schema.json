@@ -1,0 +1,450 @@
+{
+  "$defs": {
+    "Condition": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "condition",
+          "title": "Type",
+          "type": "string"
+        },
+        "trigger": {
+          "title": "Trigger",
+          "type": "string"
+        },
+        "effect": {
+          "title": "Effect",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "trigger",
+        "effect"
+      ],
+      "title": "Condition",
+      "type": "object"
+    },
+    "Definition": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "definition",
+          "title": "Type",
+          "type": "string"
+        },
+        "term": {
+          "title": "Term",
+          "type": "string"
+        },
+        "meaning": {
+          "title": "Meaning",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "term",
+        "meaning"
+      ],
+      "title": "Definition",
+      "type": "object"
+    },
+    "ExtractorInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ],
+      "title": "ExtractorInfo",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "properties": {
+        "source_hash": {
+          "title": "Source Hash",
+          "type": "string"
+        },
+        "created_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Created At"
+        },
+        "processor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ProcessorInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "source_hash"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "Obligation": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "obligation",
+          "title": "Type",
+          "type": "string"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "object": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Object"
+        },
+        "modality": {
+          "title": "Modality",
+          "type": "string"
+        },
+        "deadline": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Deadline"
+        }
+      },
+      "required": [
+        "type",
+        "subject",
+        "action",
+        "modality"
+      ],
+      "title": "Obligation",
+      "type": "object"
+    },
+    "ParagraphBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "semantic": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "condition": "#/$defs/Condition",
+                "definition": "#/$defs/Definition",
+                "obligation": "#/$defs/Obligation",
+                "reference": "#/$defs/Reference"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Obligation"
+              },
+              {
+                "$ref": "#/$defs/Condition"
+              },
+              {
+                "$ref": "#/$defs/Definition"
+              },
+              {
+                "$ref": "#/$defs/Reference"
+              }
+            ]
+          },
+          "title": "Semantic",
+          "type": "array"
+        },
+        "type": {
+          "const": "paragraph",
+          "title": "Type",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "text"
+      ],
+      "title": "ParagraphBlock",
+      "type": "object"
+    },
+    "ProcessorInfo": {
+      "additionalProperties": false,
+      "description": "Processor metadata is operational metadata.\n\nMUST NOT:\n- Influence structural fingerprint\n- Modify canonical sections\n- Alter block identity\n\nSemantic enrichment is allowed to append to semantic_layers only.",
+      "properties": {
+        "aidoc_core": {
+          "title": "Aidoc Core",
+          "type": "string"
+        },
+        "extractor": {
+          "$ref": "#/$defs/ExtractorInfo"
+        },
+        "semantic_layers": {
+          "items": {
+            "$ref": "#/$defs/SemanticLayerInfo"
+          },
+          "title": "Semantic Layers",
+          "type": "array"
+        }
+      },
+      "required": [
+        "aidoc_core",
+        "extractor"
+      ],
+      "title": "ProcessorInfo",
+      "type": "object"
+    },
+    "Reference": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "reference",
+          "title": "Type",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "ref_type": {
+          "$ref": "#/$defs/ReferenceType"
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "ref_type"
+      ],
+      "title": "Reference",
+      "type": "object"
+    },
+    "ReferenceType": {
+      "enum": [
+        "internal",
+        "external"
+      ],
+      "title": "ReferenceType",
+      "type": "string"
+    },
+    "Section": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "level": {
+          "minimum": 1,
+          "title": "Level",
+          "type": "integer"
+        },
+        "blocks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "paragraph": "#/$defs/ParagraphBlock",
+                "table": "#/$defs/TableBlock"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ParagraphBlock"
+              },
+              {
+                "$ref": "#/$defs/TableBlock"
+              }
+            ]
+          },
+          "title": "Blocks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "level",
+        "blocks"
+      ],
+      "title": "Section",
+      "type": "object"
+    },
+    "SemanticLayerInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "status": {
+          "default": "success",
+          "enum": [
+            "success",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error"
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ],
+      "title": "SemanticLayerInfo",
+      "type": "object"
+    },
+    "TableBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "semantic": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "condition": "#/$defs/Condition",
+                "definition": "#/$defs/Definition",
+                "obligation": "#/$defs/Obligation",
+                "reference": "#/$defs/Reference"
+              },
+              "propertyName": "type"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Obligation"
+              },
+              {
+                "$ref": "#/$defs/Condition"
+              },
+              {
+                "$ref": "#/$defs/Definition"
+              },
+              {
+                "$ref": "#/$defs/Reference"
+              }
+            ]
+          },
+          "title": "Semantic",
+          "type": "array"
+        },
+        "type": {
+          "const": "table",
+          "title": "Type",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Rows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "rows"
+      ],
+      "title": "TableBlock",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Canonical immutable document.\n\nGuarantees:\n- spec must match SPEC_VERSION exactly\n- sections order preserved\n- structural integrity enforced via fingerprint layer\n- enrichment must preserve structure",
+  "properties": {
+    "spec": {
+      "const": "aidoc@1.0",
+      "title": "Spec",
+      "type": "string"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "sections": {
+      "items": {
+        "$ref": "#/$defs/Section"
+      },
+      "title": "Sections",
+      "type": "array"
+    }
+  },
+  "required": [
+    "spec",
+    "meta",
+    "sections"
+  ],
+  "title": "AIDoc",
+  "type": "object",
+  "": "https://aidoc.dev/schema/aidoc-1.0.schema.json"
+}

@@ -1,0 +1,33 @@
+DATA SECURITY POLICY – SAMPLE DOCUMENT
+
+1. Purpose
+
+This document describes the rules for handling confidential information within the organization.
+
+2. Definition
+
+“Confidential Information” means any non-public data, including customer records, financial data, and internal business plans.
+
+3. Requirement
+
+Employees must protect all Confidential Information from unauthorized disclosure.
+
+4. Prohibition
+
+Employees must not share Confidential Information with external parties without proper authorization.
+
+5. Instruction
+
+To access secure files, open the company portal and log in using your assigned credentials.
+
+6. Condition
+
+If an employee suspects that Confidential Information has been exposed, the employee must report the incident immediately.
+
+7. Exception
+
+Unless explicitly authorized by the compliance department, employees may not transmit Confidential Information via personal email.
+
+8. Reference
+
+For additional guidance, see Section 12 of the Information Security Handbook.

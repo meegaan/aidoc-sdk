@@ -1,0 +1,29 @@
+site_name: AIDoc
+site_description: AI-native deterministic document core format
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - User Guide: user-guide.md
+  - Architecture: architecture.md
+  - Extraction: extraction.md
+  - Semantic Processing: semantic.md
+  - Structural Guardrails: guardrails.md
+  - Determinism: determinism.md
+  - Extensions & Plugins: extensions.md
+  - Developer Guide: developer-guide.md
+
+plugins:
+  - search
