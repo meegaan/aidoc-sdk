@@ -1,0 +1,27 @@
+{
+    "meta": {
+        "source_hash": "c89d142bae9f17d3ef117b42003d48f6a2e32b0bbee7503612b0c0a325585ad8"
+    },
+    "sections": [
+        {
+            "blocks": [
+                {
+                    "id": "cc386728a9a330d8b6f56f43925ae4d8fa5c2d648b93be73cfd578eb848275a3",
+                    "semantic": [],
+                    "text": "This must be done.",
+                    "type": "paragraph"
+                },
+                {
+                    "id": "8d01bd83fa4b8dd008e18b05c0f6c353fa69fb78685a7cdbfe9d03192ec8d3d9",
+                    "semantic": [],
+                    "text": "If X then Y.",
+                    "type": "paragraph"
+                }
+            ],
+            "id": "b0ac686e9dd8e012ace2f0e9624f1881bcc982e50d8ed38583e4339ffcb2b2ae",
+            "level": 1,
+            "title": "Document"
+        }
+    ],
+    "spec": "aidoc@1.0"
+}
