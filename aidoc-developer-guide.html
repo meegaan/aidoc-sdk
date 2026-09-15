@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>AIDoc SDK — Developer &amp; Architect Reference Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #fff
+        }
+
+        @media print {
+            .pagebreak {
+                page-break-before: always
+            }
+
+            body {
+                font-size: 10pt
+            }
+
+            pre {
+                font-size: 8.5pt
+            }
+
+            nav {
+                display: none
+            }
+        }
+
+        /* Cover */
+        .cover {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 60%, #1a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 40px
+        }
+
+        .cover .badge {
+            background: #e94560;
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            display: inline-block
+        }
+
+        .cover h1 {
+            font-size: 38pt;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+            line-height: 1.1
+        }
+
+        .cover .subtitle {
+            font-size: 15pt;
+            color: #a8b2d8;
+            margin-bottom: 32px;
+            font-weight: 300
+        }
+
+        .cover .meta {
+            font-size: 9.5pt;
+            color: #8892b0;
+            border-top: 1px solid rgba(255, 255, 255, .15);
+            padding-top: 20px;
+            margin-top: 20px;
+            line-height: 2
+        }
+
+        /* TOC */
+        .toc {
+            padding: 60px 80px;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .toc h2 {
+            font-size: 18pt;
+            color: #0f3460;
+            margin-bottom: 28px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e94560
+        }
+
+        .toc ol {
+            list-style: none;
+            counter-reset: toc
+        }
+
+        .toc>ol>li {
+            counter-increment: toc;
+            margin-bottom: 4px
+        }
+
+        .toc>ol>li::before {
+            content: counter(toc) ".  ";
+            font-weight: 700;
+            color: #e94560;
+            min-width: 28px;
+            display: inline-block
+        }
+
+        .toc a {
+            color: #0f3460;
+            text-decoration: none;
+            font-size: 10.5pt
+        }
+
+        .toc a:hover {
+            color: #e94560
+        }
+
+        .toc .sub {
+            margin-left: 42px;
+            list-style: disc;
+            color: #555;
+            font-size: 9.5pt
+        }
+
+        .toc .sub li {
+            margin-bottom: 2px
+        }
+
+        /* Sections */
+        .section {
+            padding: 50px 80px;
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        h2.sec {
+            font-size: 18pt;
+            color: #0f3460;
+            margin-bottom: 22px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e94560
+        }
+
+        h3.sec {
+            font-size: 13pt;
+            color: #16213e;
+            margin: 28px 0 10px;
+            border-left: 4px solid #e94560;
+            padding-left: 10px
+        }
+
+        h4.sec {
+            font-size: 11pt;
+            color: #0f3460;
+            margin: 18px 0 8px;
+            font-weight: 600
+        }
+
+        p {
+            margin-bottom: 12px;
+            color: #2d2d44
+        }
+
+        ul,
+        ol {
+            margin: 8px 0 14px 22px;
+            color: #2d2d44
+        }
+
+        li {
+            margin-bottom: 4px
+        }
+
+        /* callout */
+        .callout {
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 18px 0;
+            font-size: 9.5pt
+        }
+
+        .callout.info {
+            background: #e8f4fd;
+            border-left: 4px solid #2196f3
+        }
+
+        .callout.warn {
+            background: #fff8e1;
+            border-left: 4px solid #ff9800
+        }
+
+        .callout.danger {
+            background: #fde8e8;
+            border-left: 4px solid #e94560
+        }
+
+        .callout.tip {
+            background: #e8fdf0;
+            border-left: 4px solid #4caf50
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            opacity: .8
+        }
+
+        /* code */
+        pre {
+            background: #0d1117;
+            color: #c9d1d9;
+            border-radius: 8px;
+            padding: 18px 22px;
+            overflow-x: auto;
+            font-size: 9pt;
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin: 14px 0;
+            line-height: 1.5
+        }
+
+        code {
+            background: #f0f0f5;
+            border-radius: 3px;
+            padding: 1px 5px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            color: #c7254e
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit
+        }
+
+        .kw {
+            color: #ff7b72
+        }
+
+        .st {
+            color: #a5d6ff
+        }
+
+        .cm {
+            color: #8b949e;
+            font-style: italic
+        }
+
+        .fn {
+            color: #d2a8ff
+        }
+
+        .cl {
+            color: #ffa657
+        }
+
+        .py {
+            color: #79c0ff
+        }
+
+        /* table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 9.5pt
+        }
+
+        th {
+            background: #0f3460;
+            color: #fff;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600
+        }
+
+        td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top
+        }
+
+        tr:nth-child(even) td {
+            background: #f8f9fb
+        }
+
+        /* diagram */
+        .diagram {
+            background: #f8f9fb;
+            border: 1px solid #e0e4ed;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            white-space: pre;
+            color: #1a1a2e;
+            line-height: 1.7
+        }
+
+        .layer-box {
+            border: 2px solid;
+            border-radius: 6px;
+            padding: 12px 18px;
+            margin: 8px 0;
+            font-size: 9.5pt
+        }
+
+        .layer-box.l1 {
+            border-color: #e94560;
+            background: #fde8e8
+        }
+
+        .layer-box.l2 {
+            border-color: #ff9800;
+            background: #fff8e1
+        }
+
+        .layer-box.l3 {
+            border-color: #2196f3;
+            background: #e8f4fd
+        }
+
+        .layer-box.l4 {
+            border-color: #4caf50;
+            background: #e8fdf0
+        }
+
+        .layer-box.l5 {
+            border-color: #9c27b0;
+            background: #f3e5f5
+        }
+
+        .layer-label {
+            font-weight: 700;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: 4px
+        }
+
+        .layer-items {
+            font-size: 9pt;
+            color: #444
+        }
+
+        .arrow {
+            text-align: center;
+            font-size: 14pt;
+            color: #888;
+            margin: 2px 0
+        }
+
+        .badge-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 8pt;
+            font-weight: 700;
+            margin-right: 4px
+        }
+
+        .badge-stable {
+            background: #e8fdf0;
+            color: #2e7d32;
+            border: 1px solid #4caf50
+        }
+
+        .badge-internal {
+            background: #e8f4fd;
+            color: #0d47a1;
+            border: 1px solid #2196f3
+        }
+
+        .badge-extendable {
+            background: #fff8e1;
+            color: #e65100;
+            border: 1px solid #ff9800
+        }
+
+        hr.div {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 32px 0
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════ COVER ═══════════════════════════════════════ -->
+    <div class="cover">
+        <span class="badge">DEVELOPER &amp; ARCHITECT REFERENCE</span>
+        <h1>AIDoc SDK</h1>
+        <div class="subtitle">AI-Native Deterministic Document Canonicalization</div>
+        <p style="color:#8892b0;max-width:560px;line-height:1.8;font-size:11pt">
+            Complete technical reference for architects and developers integrating, extending, or maintaining the
+            aidoc-sdk
+            SDK — covering every layer, contract, guarantee, and nuance of the system.
+        </p>
+        <div class="meta">
+            Package: <strong>aidoc-sdk v1.0.0</strong> &nbsp;|&nbsp;
+            Spec: <strong>aidoc@1.0</strong> &nbsp;|&nbsp;
+            Core Contract: <strong>1.0</strong> &nbsp;|&nbsp;
+            Python: <strong>≥ 3.10</strong><br />
+            Authors: <a href="https://meegaan.com" style="color: #a8b2d8; text-decoration: none;"></a>Meegaan Consulting
+            Pvt Limited</a> &nbsp;|&nbsp; License: MIT &nbsp;|&nbsp;
+            Generated: March 2026
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ TOC ═══════════════════════════════════════ -->
+    <div class="toc pagebreak">
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#s1">Design Philosophy &amp; Core Guarantees</a></li>
+            <li><a href="#s2">Architecture Overview</a>
+                <ul class="sub">
+                    <li>Layer Diagram</li>
+                    <li>Data Flow</li>
+                    <li>Deterministic Core Boundary</li>
+                </ul>
+            </li>
+            <li><a href="#s3">Installation &amp; Setup</a>
+                <ul class="sub">
+                    <li>Core Installation</li>
+                    <li>Optional Extras</li>
+                    <li>Development Setup</li>
+                </ul>
+            </li>
+            <li><a href="#s4">Public API Reference</a>
+                <ul class="sub">
+                    <li>process_file()</li>
+                    <li>process_bytes()</li>
+                    <li>Pipeline class</li>
+                    <li>PipelineConfig</li>
+                    <li>ExecutionMode</li>
+                </ul>
+            </li>
+            <li><a href="#s5">Core Layer — Canonical Data Models</a>
+                <ul class="sub">
+                    <li>AIDoc root model</li>
+                    <li>Section &amp; Block types</li>
+                    <li>Semantic Objects</li>
+                    <li>Processor Metadata</li>
+                </ul>
+            </li>
+            <li><a href="#s6">Core Layer — Processing Internals</a>
+                <ul class="sub">
+                    <li>Text Normalization Pipeline</li>
+                    <li>SHA-256 Hashing</li>
+                    <li>Canonicalization</li>
+                    <li>Fingerprinting</li>
+                    <li>Serialization</li>
+                    <li>Guardrails</li>
+                </ul>
+            </li>
+            <li><a href="#s7">Extraction Layer</a>
+                <ul class="sub">
+                    <li>BaseExtractor contract</li>
+                    <li>Extractor Registry</li>
+                    <li>Built-in: TxtExtractor</li>
+                    <li>Built-in: DOCXExtractor</li>
+                    <li>Built-in: PDF Extractor</li>
+                    <li>Writing a Custom Extractor</li>
+                </ul>
+            </li>
+            <li><a href="#s8">Pipeline Layer</a>
+                <ul class="sub">
+                    <li>PipelineContext</li>
+                    <li>PipelineStage contract</li>
+                    <li>CanonicalStage</li>
+                    <li>MetadataStage</li>
+                    <li>SemanticStage</li>
+                    <li>PipelineOrchestrator</li>
+                </ul>
+            </li>
+            <li><a href="#s9">Semantic Layer</a>
+                <ul class="sub">
+                    <li>SemanticEngine contract</li>
+                    <li>Engine Registry</li>
+                    <li>SemanticProcessor &amp; Guardrails</li>
+                    <li>Built-in: RuleEngine</li>
+                    <li>Built-in: LLMEngine</li>
+                    <li>Writing a Custom Engine</li>
+                    <li>Async Engine Patterns</li>
+                </ul>
+            </li>
+            <li><a href="#s10">Interface Layer</a>
+                <ul class="sub">
+                    <li>Python API (process_file / process_bytes)</li>
+                    <li>CLI Reference</li>
+                </ul>
+            </li>
+            <li><a href="#s11">Exception Hierarchy</a></li>
+            <li><a href="#s12">Version Governance &amp; Compatibility</a></li>
+            <li><a href="#s13">Advanced Patterns</a>
+                <ul class="sub">
+                    <li>Multi-Engine Pipeline</li>
+                    <li>Integrity Verification</li>
+                    <li>Thread Safety</li>
+                </ul>
+            </li>
+            <li><a href="#s14">Testing Guide</a></li>
+            <li><a href="#s15">Glossary</a></li>
+        </ol>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S1 — PHILOSOPHY ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s1">
+        <h2 class="sec">1. Design Philosophy &amp; Core Guarantees</h2>
+        <p>aidoc-sdk is an <strong>infrastructure-grade</strong> Python SDK designed to transform unstructured documents
+            into a deterministic, canonical JSON representation suitable for AI systems, enterprise pipelines, auditing,
+            and integrity verification. Its primary value proposition rests on five pillars:</p>
+
+        <h3 class="sec">1.1 The Five Pillars</h3>
+        <table>
+            <tr>
+                <th>Pillar</th>
+                <th>What It Means</th>
+                <th>Consequence of Violation</th>
+            </tr>
+            <tr>
+                <td><strong>Determinism</strong></td>
+                <td>Identical input always produces identical output. No randomness, no timestamps in structure, no
+                    locale dependencies.</td>
+                <td>MAJOR SDK version bump required</td>
+            </tr>
+            <tr>
+                <td><strong>Immutability</strong></td>
+                <td>All Pydantic models are frozen. Every stage returns a <em>new</em> instance — nothing is mutated in
+                    place.</td>
+                <td>Runtime error (Pydantic ValidationError)</td>
+            </tr>
+            <tr>
+                <td><strong>Structural Integrity</strong></td>
+                <td>Semantic enrichment can ONLY add metadata to <code>block.semantic</code> and
+                    <code>processor.semantic_layers</code>. Structure (IDs, text, order) is locked after
+                    canonicalization.
+                </td>
+                <td>StructuralViolationError raised by guardrails</td>
+            </tr>
+            <tr>
+                <td><strong>Controlled Public Surface</strong></td>
+                <td>Only types/functions listed in <code>__all__</code> are stable public API. Internal modules may
+                    change without notice.</td>
+                <td>N/A (breaking internal change is MINOR)</td>
+            </tr>
+            <tr>
+                <td><strong>No Global State Side Effects</strong></td>
+                <td>No global logging configuration. <code>NullHandler</code> attached — caller controls logging.
+                    Registries use threading locks.</td>
+                <td>Library behavior does not surprise host application</td>
+            </tr>
+        </table>
+
+
+
+
+
+        <h3 class="sec">1.2 Versioning Contracts</h3>
+        <div class="callout warn"><strong>⚠ Breaking Change Policy</strong>
+            Any change to normalization rules, hashing algorithm, serialization format, or canonical model schema
+            requires a <strong>MAJOR SDK version bump</strong>, a <code>SPEC_VERSION</code> bump, and a
+            <code>CORE_CONTRACT_VERSION</code> bump.
+        </div>
+        <table>
+            <tr>
+                <th>Constant</th>
+                <th>Current Value</th>
+                <th>Controls</th>
+                <th>When It Bumps</th>
+            </tr>
+            <tr>
+                <td><code>SPEC_VERSION</code></td>
+                <td><code>"aidoc@1.0"</code></td>
+                <td>aidoc-sdk.spec field — embedded in every document</td>
+                <td>Any structural model change</td>
+            </tr>
+            <tr>
+                <td><code>CORE_CONTRACT_VERSION</code></td>
+                <td><code>"1.0"</code></td>
+                <td>processor.aidoc_core field in metadata</td>
+                <td>Normalization, hashing, serialization or fingerprint change</td>
+            </tr>
+            <tr>
+                <td><code>__version__</code></td>
+                <td><code>"1.0.0"</code></td>
+                <td>Package/pip version</td>
+                <td>Any release</td>
+            </tr>
+        </table>
+
+
+
+
+
+
+    </div>
+
+    <!-- ═══════════════════════════════════════ S2 — ARCHITECTURE ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s2">
+        <h2 class="sec">2. Architecture Overview</h2>
+
+        <h3 class="sec">2.1 Layer Diagram</h3>
+        <div style="max-width:620px;margin:0 auto">
+            <div class="layer-box l1">
+                <div class="layer-label">🌐 Interface Layer</div>
+                <div class="layer-items"><code>process_file()</code> · <code>process_bytes()</code> · <code>AIDoc</code>
+                    CLI</div>
+            </div>
+            <div class="arrow">▼</div>
+            <div class="layer-box l2">
+                <div class="layer-label">⚙ Pipeline Layer</div>
+                <div class="layer-items"><code>Pipeline</code> · <code>PipelineOrchestrator</code> ·
+                    <code>PipelineContext</code> · Stages
+                </div>
+            </div>
+            <div class="arrow">▼</div>
+            <div class="layer-box l3">
+                <div class="layer-label">📄 Extraction Layer</div>
+                <div class="layer-items"><code>BaseExtractor</code> · Registry · TxtExtractor · DOCXExtractor ·
+                    PDFExtractor</div>
+            </div>
+            <div class="arrow">▼</div>
+            <div class="layer-box l4">
+                <div class="layer-label">🔒 Deterministic Core Layer</div>
+                <div class="layer-items">Normalizer · Hashing · Canonicalization · Serializer · Fingerprints ·
+                    Guardrails</div>
+            </div>
+            <div class="arrow">▼</div>
+            <div class="layer-box l5">
+                <div class="layer-label">🧠 Semantic Layer (opt-in)</div>
+                <div class="layer-items"><code>SemanticEngine</code> · Registry · <code>SemanticProcessor</code> ·
+                    RuleEngine · LLMEngine</div>
+            </div>
+        </div>
+
+        <h3 class="sec">2.2 Full Data Flow</h3>
+        <pre>
+  Input (File / Bytes)
+        │
+        ▼
+  ┌─────────────────────────────────────────────────┐
+  │  INTERFACE LAYER                                │
+  │  process_file(path, format_name, config?)       │
+  │    1. Read file bytes                           │
+  │    2. hash_bytes(raw) → source_hash (SHA-256)   │
+  │    3. get_extractor(format_name)                │
+  └─────────────────┬───────────────────────────────┘
+                    │ RawDocument + source_hash
+                    ▼
+  ┌─────────────────────────────────────────────────┐
+  │  PIPELINE — CanonicalStage                      │
+  │    canonicalize(raw, source_hash)               │
+  │    ├─ For each element                          │
+  │    │    normalize_text()   ← NFKC + rules      │
+  │    │    hash_text()        ← SHA-256            │
+  │    │    Build Block (id=hash, frozen)           │
+  │    └─ Build Section (id=hash(level+title))      │
+  │  → AIDoc (frozen, spec, meta, sections)         │
+  └─────────────────┬───────────────────────────────┘
+                    │ AIDoc (no processor yet)
+                    ▼
+  ┌─────────────────────────────────────────────────┐
+  │  PIPELINE — MetadataStage                       │
+  │    Inject ProcessorInfo                         │
+  │    (aidoc_core, extractor name/version)         │
+  │  → New AIDoc (immutable copy with meta)         │
+  └─────────────────┬───────────────────────────────┘
+                    │ [if enable_semantic=True]
+                    ▼
+  ┌─────────────────────────────────────────────────┐
+  │  PIPELINE — SemanticStage                       │
+  │    SemanticProcessor.run(doc)                      │
+  │    For each engine:                             │
+  │      enriched = engine.process(doc)              │
+  │      assert_same_spec()                         │
+  │      assert_same_source_hash()                  │
+  │      assert_structure_unchanged()               │ ← GUARDRAILS
+  │      inject semantic_layer metadata             │
+  └─────────────────┬───────────────────────────────┘
+                    │
+                    ▼
+              Final AIDoc ✓
+  </pre>
+
+        <h3 class="sec">2.3 The Deterministic Core Boundary</h3>
+        <p>The following modules form the <strong>deterministic core contract</strong>. Any behavioral change requires a
+            MAJOR version bump:</p>
+        <table>
+            <tr>
+                <th>Module</th>
+                <th>Role</th>
+                <th>Change Impact</th>
+            </tr>
+            <tr>
+                <td><code>core/normalizer.py</code></td>
+                <td>7-step text normalization (NFKC→whitespace)</td>
+                <td>All existing document hashes become invalid</td>
+            </tr>
+            <tr>
+                <td><code>core/hashing.py</code></td>
+                <td>SHA-256 hashing with strict UTF-8</td>
+                <td>All IDs and source_hash values change</td>
+            </tr>
+            <tr>
+                <td><code>core/canonical.py</code></td>
+                <td>RawDocument → aidoc-sdk transformation</td>
+                <td>Structural identity changes</td>
+            </tr>
+            <tr>
+                <td><code>core/models.py</code></td>
+                <td>Frozen Pydantic schema (AIDoc, Section, Block)</td>
+                <td>Structural contract breaks</td>
+            </tr>
+            <tr>
+                <td><code>core/serializer.py</code></td>
+                <td>Canonical JSON (sorted keys, no whitespace, null-strip)</td>
+                <td>All fingerprints change</td>
+            </tr>
+            <tr>
+                <td><code>core/fingerprints.py</code></td>
+                <td>structural_fingerprint / full_document_fingerprint</td>
+                <td>Integrity checks fail across versions</td>
+            </tr>
+            <tr>
+                <td><code>core/version.py</code></td>
+                <td>SPEC_VERSION, CORE_CONTRACT_VERSION constants</td>
+                <td>Compatibility policy anchor</td>
+            </tr>
+        </table>
+
+
+        </details>
+
+
+        </details>
+
+
+    </div>
+
+    <!-- ═══════════════════════════════════════ S3 — INSTALLATION ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s3">
+        <h2 class="sec">3. Installation &amp; Setup</h2>
+
+        <h3 class="sec">3.1 Requirements</h3>
+        <ul>
+            <li><strong>Python</strong>: 3.10, 3.11, 3.12, or 3.13 (declared in pyproject.toml as
+                <code>>=3.10,&lt;3.14</code>)
+            </li>
+            <li><strong>Build backend</strong>: setuptools ≥ 61.0</li>
+            <li><strong>Core runtime dependency</strong>: pydantic ≥ 2.0</li>
+        </ul>
+
+        <h3 class="sec">3.2 Installation Options</h3>
+        <pre><code class="kw"># Core library only (txt extraction, rule engine, programmatic API)
+</code>pip install aidoc-sdk
+
+<code class="kw"># With CLI support (adds click>=8.0)
+</code>pip install aidoc-sdk[cli]
+
+<code class="kw"># With PDF extraction (adds pdfplumber>=0.10)
+</code>pip install aidoc-sdk[pdf]
+
+<code class="kw"># With DOCX extraction (adds python-docx>=1.2.0)
+</code>pip install aidoc-sdk[docx]
+
+<code class="kw"># All capabilities
+</code>pip install aidoc-sdk[cli,pdf,docx]
+
+<code class="kw"># Development (adds pytest>=9.0.2, mypy>=1.8.0)
+</code>pip install aidoc-sdk[dev]</pre>
+
+        <h3 class="sec">3.3 From Source (uv)</h3>
+        <pre>git clone &lt;repo&gt;
+cd "AIDoc SDK"
+uv sync               <span class="cm"># installs all deps from uv.lock</span>
+uv run pytest         <span class="cm"># run tests</span>
+uv run aidoc-sdk --help   <span class="cm"># run CLI</span></pre>
+
+        <h3 class="sec">3.4 Type Checking</h3>
+        <p>The package ships a <code>py.typed</code> marker (PEP 561). Full static type information is available for
+            mypy and Pyright users. Run:</p>
+        <pre>mypy src/aidoc_sdk --strict</pre>
+        <div class="callout tip"><strong>💡 Tip</strong>Public API types are guaranteed. Internal module types may
+            change without notice between minor versions.</div>
+    </div>
+
+
+
+    <!-- ═══════════════════════════════════════ S4 — PUBLIC API ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s4">
+        <h2 class="sec">4. Public API Reference</h2>
+        <p>The <code>aidoc_sdk</code> top-level package exposes the stable interface. All classes and functions listed
+            here
+            are covered by the semantic versioning contract.</p>
+
+        <h3 class="sec">4.1 <code>process_file()</code> and <code>process_bytes()</code></h3>
+        <p>High-level orchestration functions that handle the entire lifecycle: extraction, canonicalization, metadata
+            injection, and optional enrichment.</p>
+        <pre><code class="kw">def</code> <code class="fn">process_file</code>(
+    path: <code class="cl">Path</code> | <code class="st">str</code>,
+    format_name: <code class="st">str</code> | <code class="kw">None</code> = <code class="kw">None</code>,
+    config: <code class="cl">PipelineConfig</code> | <code class="kw">None</code> = <code class="kw">None</code>,
+) -> <code class="cl">AIDoc</code>: ...
+
+<code class="kw">def</code> <code class="fn">process_bytes</code>(
+    data: <code class="st">Path</code>,
+    format_name: <code class="st">str</code>,
+    config: <code class="cl">PipelineConfig</code> | <code class="kw">None</code> = <code class="kw">None</code>,
+) -> <code class="cl">AIDoc</code>: ...</pre>
+
+        <h3 class="sec">4.2 <code>Pipeline</code> and <code>PipelineConfig</code></h3>
+        <pre>config = PipelineConfig(
+    execution_mode=ExecutionMode.sync,   <span class="cm"># or ExecutionMode.async_mode</span>
+    enable_semantic=<code class="kw">False</code>,               <span class="cm"># DEFAULT: False - opt-in!</span>
+    semantic_engines=[<span class="st">"rule_engine"</span>],    <span class="cm"># List of registered engine names</span>
+)</pre>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S5 — DATA MODELS ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s5">
+        <h2 class="sec">5. Core Layer — Canonical Data Models</h2>
+        <p>All core structural records descend from immutable Pydantic data models. These schemas constitute the core
+            contract.</p>
+        <pre>aidoc-sdk (<span class="st">frozen=True</span>)
++-- spec: str               <span class="cm">e.g. "aidoc@1.0"</span>
++-- meta: Meta
+|   +-- source_hash: str    <span class="cm">SHA-256 of raw input bytes - IMMUTABLE</span>
+|   +-- created_at: datetime
+|   +-- processor: Optional[ProcessorInfo]
+|       +-- aidoc_core: str       <span class="cm">e.g. "1.0"</span>
+|       +-- extractor: ExtractorInfo(name, version)
+|       +-- semantic_layers: List[SemanticLayerInfo(name, version)]
++-- sections: List[Section]
+    +-- id: str             <span class="cm">Deterministic from content hash</span>
+    +-- title, level
+    +-- blocks: List[Union[ParagraphBlock, TableBlock]]
+        ParagraphBlock
+        |   +-- id: str     <span class="cm">Deterministic from content hash</span>
+        |   +-- type: "paragraph"
+        |   +-- text: str   <span class="cm">Normalized text</span>
+        |   +-- semantic: List[Requirement|Prohibition|Instruction|Condition|Exception|Statement|Definition|Reference]
+        TableBlock(id, type="table", rows)</pre>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S6 — PROCESSING ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s6">
+        <h2 class="sec">6. Core Layer — Processing Internals</h2>
+        <h3 class="sec">6.1 Text Normalization Pipeline</h3>
+        <ol>
+            <li>Unicode NFKC normalization</li>
+            <li>Conversion to str (if not already)</li>
+            <li>Whitespace collapse (tabs, newlines within paragraphs converted to space)</li>
+            <li>Trimming leading/trailing whitespace</li>
+        </ol>
+
+        <h3 class="sec">6.2 Hashing &amp; Canonicalization</h3>
+        <p>SHA-256 is used exclusively. The <code>source_hash</code> is derived from raw input bytes. Block IDs are
+            derived from the SHA-256 hash of their canonical JSON representation (without the ID field).</p>
+
+        <h3 class="sec">6.3 Fingerprinting</h3>
+        <pre><code class="kw">def</code> <code class="fn">structural_fingerprint</code>(doc: <code class="cl">AIDoc</code>) -> <code class="st">str</code>:
+    <span class="cm"># Hashes the document omitting 'semantic' and 'processor' metadata.</span>
+    
+<code class="kw">def</code> <code class="fn">full_document_fingerprint</code>(doc: <code class="cl">AIDoc</code>) -> <code class="st">str</code>:
+    <span class="cm"># Hashes the full canonical Document JSON representation.</span></pre>
+
+        <details
+            style="margin: 16px 0; background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px;">
+            <summary style="font-weight: 600; cursor: pointer; color: #0f3460;">Evolution Stage: 2. Canonical AIDoc
+                (Deterministic Structural Identity)</summary>
+            <pre style="margin-top: 12px; margin-bottom: 0;">{
+  "spec": "aidoc@1.0",
+  "meta": {
+    "source_hash": "ee8a28848c95a02ef1585778208dfbcc3a58bba988a0efa52557f6fe1130ba11",
+    "created_at": null,
+    "processor": null
+  },
+  "sections": [
+    {
+      "id": "b0ac686e9dd8e012ace2f0e9624f1881bcc982e50d8ed38583e4339ffcb2b2ae",
+      "title": "Service Level Agreement",
+      "level": 1,
+      "blocks": [
+        {
+          "id": "84adf102219f57bab50880fbb5b7736f0a9dc3d8781f73bd8379d19ec272dc54",
+          "semantic": [],
+          "type": "paragraph",
+          "text": "This agreement defines the service quality standards."
+        },
+        {
+          "id": "2d2a19e8ad51bbf434bf3fb6c51a6a8368dd91d950666d20525cdbd24b4af33c",
+          "semantic": [],
+          "type": "paragraph",
+          "text": "The Provider must maintain 99.9% uptime monthly."
+        }
+      ]
+    }
+  ]
+}</pre>
+        </details>
+
+
+
+
+
+
+
+
+    </div>
+
+    <!-- ═══════════════════════════════════════ S7 — EXTRACTION ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s7">
+        <h2 class="sec">7. Extraction Layer</h2>
+        <pre><code class="kw">class</code> <code class="cl">BaseExtractor</code>(ABC):
+    version: <code class="st">str</code>    <span class="cm"># Must be defined on subclass</span>
+
+    <code class="meta">@abstractmethod</code>
+    <code class="kw">def</code> <code class="fn">extract</code>(self, data: <code class="st">Path</code>) -> <code class="cl">RawDocument</code>:
+        <span class="st">"""Pure format conversion only. No normalization, no hashing."""</span>
+        ...</pre>
+        <table>
+            <tr>
+                <th>Format</th>
+                <th>Available</th>
+                <th>Backend</th>
+                <th>Behavior</th>
+            </tr>
+            <tr>
+                <td>txt</td>
+                <td>Always</td>
+                <td>Built-in</td>
+                <td>Splits on double-newlines. Grouped as un-sectioned paragraphs.</td>
+            </tr>
+            <tr>
+                <td>docx</td>
+                <td>[docx]</td>
+                <td>python-docx</td>
+                <td>Parses Heading styles to auto-nest sections.</td>
+            </tr>
+            <tr>
+                <td>pdf</td>
+                <td>[pdf]</td>
+                <td>pdfplumber</td>
+                <td>Paragraph inference based on vertical spacing.</td>
+            </tr>
+        </table>
+
+        <details
+            style="margin: 16px 0; background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px;">
+            <summary style="font-weight: 600; cursor: pointer; color: #0f3460;">Evolution Stage: 1. Raw Extracted
+                Document (Unstructured Elements)</summary>
+            <pre style="margin-top: 12px; margin-bottom: 0;">{
+  "elements": [
+    {
+      "order": 0,
+      "text": "Service Level Agreement",
+      "level": 1
+    },
+    {
+      "order": 1,
+      "text": "This agreement defines the service quality standards."
+    },
+    {
+      "order": 2,
+      "text": "The Provider shall maintain 99.9% uptime monthly."
+    }
+  ]
+}</pre>
+        </details>
+
+
+
+
+
+
+
+
+    </div>
+
+    <!-- ═══════════════════════════════════════ S8 — PIPELINE ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s8">
+        <h2 class="sec">8. Pipeline Layer</h2>
+        <p>The pipeline architecture dictates a unidirectional flow through discrete stages. Each stage receives a
+            <code>PipelineContext</code> and returns a new (or mutated, non-frozen parts only) context.
+        </p>
+
+        <h3 class="sec">8.1 Pipeline Context</h3>
+        <pre><code class="kw">class</code> <code class="cl">PipelineContext</code>:
+    raw_document: <code class="cl">RawDocument</code>
+    source_hash: <code class="st">str</code>
+    extractor_info: <code class="cl">ExtractorInfo</code>
+    canonical_document: <code class="cl">AIDoc</code> | <code class="kw">None</code> = <code class="kw">None</code></pre>
+
+        <h3 class="sec">8.2 Standard Stages</h3>
+        <ul>
+            <li><code>CanonicalStage</code>: Canonicalizes <code>raw_document</code> producing
+                <code>canonical_document</code>.
+            </li>
+            <li><code>MetadataStage</code>: Injects ProcessorInfo based on the extractor identity and core version.</li>
+            <li><code>SemanticStage</code>: If enabled, passes the document to <code>SemanticProcessor</code> to run
+                configured Semantic Engines.</li>
+        </ul>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S9 — SEMANTIC ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s9">
+        <h2 class="sec">9. Semantic Layer</h2>
+        <p>Semantic enrichment is fully opt-in and operates solely on the <code>semantic</code> field of blocks.</p>
+
+        <h3 class="sec">9.1 SemanticEngine Contract</h3>
+        <pre><code class="kw">class</code> <code class="cl">SemanticEngine</code>(ABC):
+    name: <code class="st">str</code>      <span class="cm"># Required - must match @engine decorator</span>
+    version: <code class="st">str</code>   <span class="cm"># Required - enforced at class definition</span>
+
+    <code class="meta">@abstractmethod</code>
+    <code class="kw">def</code> <code class="fn">process</code>(self, document: <code class="cl">AIDoc</code>) -> <code class="cl">AIDoc</code>: ...
+
+    <code class="kw">async def</code> <code class="fn">process_async</code>(self, document: <code class="cl">AIDoc</code>) -> <code class="cl">AIDoc</code>:
+        <code class="kw">return</code> self.process(document)  <span class="cm"># default delegates to sync</span></pre>
+
+        <h3 class="sec">9.2 SemanticProcessor &amp; Guardrails</h3>
+        <p>Engines are NOT invoked directly. They are invoked through <code>SemanticProcessor</code>, which acts as a
+            sandbox that enforces structural guarantees after every engine call:</p>
+        <pre>assert_same_spec(before, after)
+assert_same_source_hash(before, after)
+assert_structure_unchanged(before, after)</pre>
+        <p>If any guardrail fails, a <code>StructuralViolationError</code> is raised and wrapped as an
+            <code>EngineExecutionError</code>.
+        </p>
+        <p><strong>Failure handling</strong> is configurable via <code>PipelineConfig.semantic_fail_fast</code>:</p>
+        <ul style="margin: 8px 0 8px 24px;">
+            <li><code>semantic_fail_fast=True</code> (default) — Raises <code>EngineExecutionError</code> immediately on
+                any failure.</li>
+            <li><code>semantic_fail_fast=False</code> — Logs the error, records it in
+                <code>meta.processor.semantic_layers[].error</code>, and continues with remaining engines.
+            </li>
+        </ul>
+        <p>The <code>SemanticLayerInfo</code> model records each engine's <code>name</code>, <code>version</code>,
+            <code>status</code> (<code>"success"</code> or <code>"failed"</code>), and optional <code>error</code>
+            message for full auditability.
+        </p>
+
+        <h3 class="sec">9.3 Built-in: LLMEngine</h3>
+        <p>The SDK includes an async-first LLM-powered engine (<code>aidoc-sdk.semantic.llm.engine.LLMEngine</code>)
+            that
+            extracts structured semantics from text blocks without mutating canonical boundaries. It requires an
+            instance of <code>BaseLLMClient</code> to operate and is inherently guarded against structural
+            hallucinations via the SemanticProcessor.</p>
+
+        <details
+            style="margin: 16px 0; background: #f8f9fb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px;">
+            <summary style="font-weight: 600; cursor: pointer; color: #0f3460;">Evolution Stage: 3. Final Enriched AIDoc
+                (Rich Semantic Articulation)</summary>
+            <pre style="margin-top: 12px; margin-bottom: 0;">{
+  "spec": "aidoc@1.0",
+  "meta": {
+    "source_hash": "ee8a28848c95a02ef1585778208dfbcc3a58bba988a0efa52557f6fe1130ba11",
+    "created_at": null,
+    "processor": {
+      "aidoc_core": "1.0",
+      "extractor": {
+        "name": "docx",
+        "version": "1.2"
+      },
+      "semantic_layers": [
+        {
+          "name": "llm_engine",
+          "version": "2.0"
+        }
+      ]
+    }
+  },
+  "sections": [
+    {
+      "id": "b0ac686e9dd8e012ace2f0e9624f1881bcc982e50d8ed38583e4339ffcb2b2ae",
+      "title": "Service Level Agreement",
+      "level": 1,
+      "blocks": [
+        {
+          "id": "84adf102219f57bab50880fbb5b7736f0a9dc3d8781f73bd8379d19ec272dc54",
+          "semantic": [
+            {
+              "type": "definition",
+              "term": "SLA",
+              "meaning": "Service Level Agreement"
+            }
+          ],
+          "type": "paragraph",
+          "text": "This agreement defines the service quality standards."
+        },
+        {
+          "id": "2d2a19e8ad51bbf434bf3fb6c51a6a8368dd91d950666d20525cdbd24b4af33c",
+          "semantic": [
+            {
+              "type": "requirement",
+              "subject": "Provider",
+              "action": "maintain uptime",
+              "object": "99.9% monthly",
+              "modality": "mandatory"
+            },
+            {
+              "type": "condition",
+              "trigger": "Provider fails to meet Uptime",
+              "effect": "a credit is issued"
+            }
+          ],
+          "type": "paragraph",
+          "text": "The Provider must maintain 99.9% uptime monthly."
+        }
+      ]
+    }
+  ]
+}</pre>
+        </details>
+
+
+
+
+
+
+
+
+
+
+        <h3 class="sec">9.4 Implementing a Custom BaseLLMClient</h3>
+        <p>To connect the <code>LLMEngine</code> to a specific provider (OpenAI, Anthropic, or internal API), implement
+            the <code>BaseLLMClient</code> interface. This keeps the semantic logic agnostic of transport details.</p>
+        <pre><code class="kw">from</code> aidoc-sdk.semantic.llm.client <code class="kw">import</code> <code class="cl">BaseLLMClient</code>
+
+<code class="kw">class</code> <code class="cl">MyCustomClient</code>(<code class="cl">BaseLLMClient</code>):
+    name = <span class="st">"my_custom_adapter"</span>
+
+    <code class="kw">async def</code> <code class="fn">generate</code>(self, prompt: <code class="st">str</code>) -> <code class="cl">Dict</code>[<code class="st">str</code>, <code class="cl">Any</code>]:
+        <span class="cm"># 1. Wrap prompt for your specific provider</span>
+        <span class="cm"># 2. Call provider API (await)</span>
+        <span class="cm"># 3. Return parsed JSON dict</span>
+        <code class="kw">return</code> {"requirements": [...]}</pre>
+
+        <h3 class="sec">9.5 Semantic Engine Extensibility (Domain Engines)</h3>
+        <p>Domain-specific semantic enrichers (e.g., Legal, Finance, Healthcare) can be distributed as independent
+            packages without modifying the Core SDK. They use the public decorator to register themselves automatically.
+        </p>
+        <pre><code class="cm"># Example: aidoc_legal/engine.py</code>
+<code class="kw">from</code> aidoc-sdk.semantic.decorators <code class="kw">import</code> engine
+<code class="kw">from</code> aidoc-sdk.semantic.base <code class="kw">import</code> <code class="cl">SemanticEngine</code>
+
+<code class="meta">@engine</code>(<span class="st">"legal_analyzer"</span>)
+<code class="kw">class</code> <code class="cl">LegalEngine</code>(<code class="cl">SemanticEngine</code>):
+    name = <span class="st">"legal_analyzer"</span>
+    version = <span class="st">"1.0"</span>
+
+    <code class="kw">def</code> <code class="fn">enrich</code>(self, document):
+        <span class="cm"># ... implementation ...</span>
+        <code class="kw">return</code> document.model_copy()</pre>
+        <p>In the consuming application, importing the module executes the decorator, allowing it to be added to the
+            pipeline:</p>
+        <pre><code class="kw">import</code> aidoc_legal  <span class="cm"># Triggers @engine registration</span>
+        
+config = PipelineConfig(enable_semantic=<code class="kw">True</code>, semantic_engines=[<span class="st">"legal_analyzer"</span>])</pre>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════ S10 — INTERFACE ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s10">
+        <h2 class="sec">10. Interface Layer &amp; CLI</h2>
+
+        <h3 class="sec">10.1 CLI Reference</h3>
+        <p>The <code>AIDoc</code> executable utilizes Click to provide a POSIX-compliant interface.</p>
+        <pre>aidoc-sdk source.pdf               <span class="cm"># Basic canonicalization</span>
+aidoc-sdk source.docx  --semantic <span class="cm"># Extract & enrich (rule_engine)</span>
+aidoc-sdk --help                               <span class="cm"># Full argument list</span></pre>
+        <p>Outputs to <code>stdout</code>. Errors route to <code>stderr</code>, suppressing unhelpful tracebacks unless
+            highly verbose modes are enabled.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S11 — ERRORS ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s11">
+        <h2 class="sec">11. Exception Hierarchy</h2>
+        <pre>AIDocError (root - catch-all)
++-- AIDocTypeError  (TypeError)
++-- AIDocValueError (ValueError)
++-- ConfigurationError
++-- NormalizationError
++-- ParsingError
++-- SerializationError
++-- IntegrityError
++-- DeterminismViolationError
++-- StructuralViolationError
++-- ExtractionError
++-- SemanticError
+|   +-- EngineExecutionError
++-- StageExecutionError
++-- AIDocIOError
++-- DecodeError</pre>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S12 — GOVERNANCE ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s12">
+        <h2 class="sec">12. Version Governance &amp; Compatibility</h2>
+        <p>aidoc-sdk adheres strictly to Semantic Versioning 2.0.0 for its package constraints.</p>
+        <ul>
+            <li><strong>MAJOR:</strong> Processing internals, normalization rules, schema breaking changes, API
+                rewrites.</li>
+            <li><strong>MINOR:</strong> New extractors, new pipelines stages, new built-in engines, optional fields.
+            </li>
+            <li><strong>PATCH:</strong> Bug fixes, security fixes, dependency bumps transparent to user.</li>
+        </ul>
+        <div class="callout tip"><strong>Continuous Verification</strong>
+            All CI builds run regression fingerprint tests against golden JSON fixtures to ensure cross-version
+            determinism.
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S13 — ADVANCED ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s13">
+        <h2 class="sec">13. Advanced Patterns</h2>
+
+        <h3 class="sec">13.1 Async Safety</h3>
+        <div class="callout critical"><strong>Pitfall: Calling pipeline.run() in async contexts</strong>
+            Use <code>await pipeline.run_async()</code> inside async tasks/handlers. Async-only stages raise
+            NotImplementedError on the sync path - this prevents silent hangs!
+            Never use <code>asyncio.run()</code> inside a stage or engine.
+        </div>
+
+        <h3 class="sec">13.2 Multi-Engine Pipelines</h3>
+        <pre><code class="meta">@engine</code>(<span class="st">"compliance_check"</span>)
+<code class="kw">class</code> <code class="cl">ComplianceEngine</code>(<code class="cl">SemanticEngine</code>): ...
+
+config = PipelineConfig(
+    enable_semantic=<code class="kw">True</code>,
+    semantic_engines=[<span class="st">"rule_engine"</span>, <span class="st">"compliance_check"</span>] <span class="cm"># Executes sequentially</span>
+)</pre>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S14 — TESTING ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s14">
+        <h2 class="sec">14. Testing Guide</h2>
+        <p>The SDK codebase maintains an 85%+ coverage enforcement.</p>
+        <pre><span class="cm"># From project root</span>
+uv sync
+uv run pytest tests/unit/ -v
+
+<span class="cm"># Verify deterministic golden snapshots</span>
+uv run pytest tests/golden/</pre>
+        <p>When writing tests for custom engines, note that you <em>must manual inject</em> the
+            <code>ProcessorInfo</code> metadata if you invoke <code>SemanticProcessor.run()</code> directly instead of
+            using the Pipeline orchestrator.
+        </p>
+    </div>
+
+    <!-- ═══════════════════════════════════════ S15 — GLOSSARY ═══════════════════════════════════════ -->
+    <div class="section pagebreak" id="s15">
+        <h2 class="sec">15. Glossary</h2>
+        <ul>
+            <li><strong>AIDoc:</strong> The root canonical entity containing metadata, processing info, and sections.
+            </li>
+            <li><strong>Canonicalization:</strong> The strict process of parsing raw structures into cryptographically
+                identical nodes.</li>
+            <li><strong>Fingerprint:</strong> SHA-256 string representing the identity of a block or document.</li>
+            <li><strong>Guardrails:</strong> Diff-check assertions ensuring engines do not alter immutable structure
+                bounds.</li>
+            <li><strong>Semantic Object:</strong> Inferred meaning (e.g., Requirement, Prohibition) layered on top of
+                canonical text blocks.</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
